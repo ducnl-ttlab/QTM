@@ -22,6 +22,12 @@ app.use((req, res, next) => {
 });
 
 app.use(cors(corsOptions));
+app.use(express.json());
+app.use(
+    express.urlencoded({
+        extended: true,
+    })
+);
 
 (async () => {
     const client = await createClient({
@@ -36,12 +42,6 @@ app.use(cors(corsOptions));
     global._ = _;
     console.log("redis connected!");
 })();
-
-app.use(
-    express.urlencoded({
-        extended: true,
-    })
-);
 
 app.use("/", require("./routes"));
 
