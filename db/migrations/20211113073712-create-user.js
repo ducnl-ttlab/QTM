@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 module.exports = {
     up: async (queryInterface, DataTypes) => {
-        await queryInterface.createTable('users', {
+        await queryInterface.createTable("users", {
             uuid: {
                 type: DataTypes.UUID,
                 defaultValue: DataTypes.UUIDV4,
@@ -12,11 +12,7 @@ module.exports = {
                 primaryKey: true,
                 type: DataTypes.INTEGER,
             },
-            firstName: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            lastName: {
+            username: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
@@ -27,15 +23,15 @@ module.exports = {
             },
             phoneNumber: {
                 type: DataTypes.INTEGER,
-                allowNull: false,
+                allowNull: true,
             },
             address: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
             },
             city: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
             },
             role: {
                 type: DataTypes.INTEGER,
@@ -50,18 +46,18 @@ module.exports = {
                 type: DataTypes.STRING,
             },
             dateAdded: {
-                type: 'TIMESTAMP',
-                defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
+                type: "TIMESTAMP",
+                defaultValue: DataTypes.literal("CURRENT_TIMESTAMP"),
                 allowNull: false,
             },
             lastUpdated: {
-                type: 'TIMESTAMP',
-                defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
+                type: "TIMESTAMP",
+                defaultValue: DataTypes.literal("CURRENT_TIMESTAMP"),
                 allowNull: false,
             },
         });
     },
     down: async (queryInterface, DataTypes) => {
-        await queryInterface.dropTable('users');
+        await queryInterface.dropTable("users");
     },
 };

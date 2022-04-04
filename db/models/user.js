@@ -1,5 +1,6 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
     class User extends Model {
         /**
@@ -7,22 +8,22 @@ module.exports = (sequelize, DataTypes) => {
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
-        static associate({ Course, UserCourse, Notification,Question }) {
+        static associate({ Course, UserCourse, Notification, Question }) {
             // define association here
             this.hasMany(Course, {
-                foreignKey: 'instructorId',
-                onDelete: 'cascade',
+                foreignKey: "instructorId",
+                onDelete: "cascade",
                 hooks: true,
             });
             this.belongsToMany(Course, {
-                through: 'usercourses',
-                foreignKey: 'userId',
+                through: "usercourses",
+                foreignKey: "userId",
             });
             this.belongsToMany(Question, {
-                through: 'userquestions',
-                foreignKey: 'userId',
+                through: "userquestions",
+                foreignKey: "userId",
             });
-            this.hasMany(Notification, { foreignKey: 'userId' });
+            this.hasMany(Notification, { foreignKey: "userId" });
         }
         toJSON() {
             return {
@@ -40,11 +41,7 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.UUID,
                 defaultValue: DataTypes.UUIDV4,
             },
-            firstName: {
-                type: DataTypes.STRING,
-                allowNull: false,
-            },
-            lastName: {
+            username: {
                 type: DataTypes.STRING,
                 allowNull: false,
             },
@@ -55,15 +52,15 @@ module.exports = (sequelize, DataTypes) => {
             },
             phoneNumber: {
                 type: DataTypes.INTEGER,
-                allowNull: false,
+                allowNull: true,
             },
             address: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
             },
             city: {
                 type: DataTypes.STRING,
-                allowNull: false,
+                allowNull: true,
             },
             role: {
                 type: DataTypes.INTEGER,
@@ -78,22 +75,22 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
             },
             dateAdded: {
-                type: 'TIMESTAMP',
-                defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+                type: "TIMESTAMP",
+                defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
                 allowNull: false,
             },
             lastUpdated: {
-                type: 'TIMESTAMP',
-                defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
+                type: "TIMESTAMP",
+                defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
                 allowNull: false,
             },
         },
         {
             sequelize,
             timestamps: false,
-            tableName: 'users',
-            modelName: 'User',
-        },
+            tableName: "users",
+            modelName: "User",
+        }
     );
     return User;
 };

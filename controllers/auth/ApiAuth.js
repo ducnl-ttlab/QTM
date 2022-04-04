@@ -6,7 +6,6 @@ const { User } = require("../../db/models");
 module.exports = class ApiUser {
     static async register(req, res) {
         let { email } = req.body;
-        console.log(email);
 
         try {
             let hasUser = await User.findOne({ where: { email } });
@@ -43,6 +42,46 @@ module.exports = class ApiUser {
     }
 
     static async login(req, res) {
-        return res.json("ok");
+        let { email, password } = req.body;
+        //find user
+        try {
+            let user = await User.findOne({ where: { email } });
+            if (!user) {
+                return res.status(400).json({
+                    error: true,
+                    msg: ["Tài khoàn này không tồn tại"],
+                });
+            }
+
+            const isMatch = await bcrypt.compare(password, user.password);
+
+            if (!isMatch) {
+                return res.status(400).json({
+                    error: true,
+                    msg: ["Mật khẩu của bạn không chính xác"],
+                });
+            }
+            const payload = {
+                user: {
+                    id: user.id,
+                    role: user.role,
+                },
+            };
+
+            jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 36000 }, (err, token) => {
+                if (err) throw err;
+                if (user.imageUrl) {
+                    user.imageUrl = user.imageUrl.split(" ")[0];
+                }
+                return res.status(200).json({
+                    error: false,
+                    token,
+                    user: user,
+                });
+            });
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).send("Server error");
+        }
     }
 };
