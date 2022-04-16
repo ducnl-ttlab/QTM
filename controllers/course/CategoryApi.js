@@ -1,5 +1,6 @@
 const { Category } = require("../../db/models");
 const { setOrGetCache } = require("../../utils/feature");
+
 exports.getAll = async (req, res) => {
     try {
         const categoryList = await setOrGetCache("categories", async () => {
