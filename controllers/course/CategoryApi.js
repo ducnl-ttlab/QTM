@@ -1,5 +1,3 @@
-module.exports = {
-    getAll: async (req, res) => {
-        res.json("ok");
-    },
+exports.getAll = async (req, res) => {
+    res.json("ok");
 };
