@@ -4,13 +4,37 @@ const app = express();
 const { sequelize } = require("./db/models");
 const { createClient } = require("redis");
 const _ = require("lodash");
+const swaggerUI = require("swagger-ui-express");
+const swaggerJsdoc = require("swagger-jsdoc");
+
+const options = {
+    definition: {
+        openapi: "3.0.0",
+
+        info: {
+            title: "Elearning",
+            version: "1.0.0",
+            description: "Help you build your personal brand",
+        },
+        servers: [
+            {
+                url: "http://localhost:7500",
+            },
+        ],
+    },
+    apis: ["./routes/**/*.js"],
+};
+
+const specs = swaggerJsdoc(options);
+
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
 require("dotenv").config();
 const PORT = process.env.PORT || 5000;
 
 const corsOptions = {
     origin: "http://localhost:4200",
-    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    optionsSuccessStatus: 200,
     credentials: true,
 };
 
