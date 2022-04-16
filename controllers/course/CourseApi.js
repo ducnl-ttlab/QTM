@@ -1,15 +1,14 @@
-const { Category } = require("../../db/models");
-const { setOrGetCache } = require("../../utils/feature");
+const { Course } = require("../../db/models");
 exports.getAll = async (req, res) => {
     try {
-        const categoryList = await setOrGetCache("categories", async () => {
-            let categories = await Category.findAll();
-            return categories;
+        let CourseList = await setOrGetCache("courses", async () => {
+            const courses = await Course.findAll();
+            return courses;
         });
 
         res.status(200).json({
             error: false,
-            categories: categoryList,
+            courses: CourseList,
         });
     } catch (error) {
         console.log(error.message);
@@ -20,8 +19,8 @@ exports.getAll = async (req, res) => {
 exports.getDetails = async (req, res) => {
     try {
         const { id } = req.params;
-        const category = await Category.findByPk(id);
-        if (!category) {
+        const course = await Course.findByPk(id);
+        if (!course) {
             return res.status(400).json({
                 error: true,
                 msg: "không tìm thấy",
@@ -29,7 +28,7 @@ exports.getDetails = async (req, res) => {
         } else {
             return res.status(200).json({
                 error: false,
-                category,
+                course,
             });
         }
     } catch (error) {

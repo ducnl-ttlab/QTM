@@ -31,7 +31,7 @@ app.use(
 
 (async () => {
     const client = await createClient({
-        url: process.env.REDIS_URL,
+        // url: process.env.REDIS_URL,
     });
 
     client.on("error", (err) => console.log("Redis Client Error", err));
@@ -42,7 +42,6 @@ app.use(
     global._ = _;
     console.log("redis connected!");
 })();
-
 app.use("/", require("./routes"));
 
 app.use((req, res) => {
