@@ -1,3 +1,3 @@
 const AuthValidation = require("./auth.validate");
-
-module.exports = { AuthValidation };
+const CourseValidation = require("./course.validate");
+module.exports = { AuthValidation, CourseValidation };
