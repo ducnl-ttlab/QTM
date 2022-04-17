@@ -7,3 +7,6 @@ cloudinary.config({
 });
 
 module.exports = cloudinary;
+
+// ducnong0916@gmail.com
+// 123456asdASD!
