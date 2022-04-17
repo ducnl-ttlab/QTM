@@ -8,4 +8,5 @@ router.use("/auth", require("./auth/auth"));
 router.use("/usercourse", require("./usercourse"));
 router.use("/instructor", require("./instructor"));
 
+
 module.exports = router;
