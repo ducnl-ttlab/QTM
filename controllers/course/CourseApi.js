@@ -1,5 +1,6 @@
 const { Course } = require("../../db/models");
 const { setOrGetCache } = require("../../utils/feature");
+const cloudinary = require("../../config/cloud/cloudinary");
 
 exports.getAll = async (req, res) => {
   try {
@@ -80,6 +81,12 @@ exports.create = async (req, res) => {
       description: req.body.description,
       instructorId: req.user.id,
     };
+    if (req.file !== undefined) {
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: "courses",
+      });
+      course.imageUrl = `${result.secure_url} ${result.public_id}`;
+    }
     await Course.create(course);
     return res.status(200).json({
       error: false,
