@@ -6,7 +6,9 @@
 
 `sequelize db:migrate`
 
-`sequelize seed:all`
+`sequelize db:migrate:undo:all`
+
+`sequelize db:seed:all`
 
 `add .env file`
 
