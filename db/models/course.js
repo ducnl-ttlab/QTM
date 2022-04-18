@@ -1,5 +1,5 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 
 let date = new Date();
 module.exports = (sequelize, DataTypes) => {
@@ -11,28 +11,28 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate({ Category, User, UserCourse, Topic, Notification }) {
             this.belongsTo(Category, {
-                foreignKey: 'categoryId',
-                as: 'categories',
-                onDelete: 'cascade',
+                foreignKey: "categoryId",
+                as: "categories",
+                onDelete: "cascade",
             });
             this.belongsTo(User, {
-                foreignKey: 'instructorId',
-                as: 'users',
-                onDelete: 'cascade',
+                foreignKey: "instructorId",
+                as: "users",
+                onDelete: "cascade",
             });
             this.belongsToMany(User, {
-                through: 'usercourses',
-                foreignKey: 'courseId',
-                onDelete: 'CASCADE',
+                through: "usercourses",
+                foreignKey: "courseId",
+                onDelete: "CASCADE",
             });
             this.hasMany(Topic, {
-                foreignKey: 'courseId',
-                onDelete: 'CASCADE',
+                foreignKey: "courseId",
+                onDelete: "CASCADE",
                 hooks: true,
             });
             this.hasMany(Notification, {
-                foreignKey: 'courseId',
-                onDelete: 'cascade',
+                foreignKey: "courseId",
+                onDelete: "cascade",
             });
         }
 
@@ -55,11 +55,17 @@ module.exports = (sequelize, DataTypes) => {
             },
             instructorId: {
                 type: DataTypes.INTEGER,
+                references: { model: "users", key: "id" },
                 allowNull: false,
+                onUpdate: "cascade",
+                onDelete: "cascade",
             },
             categoryId: {
                 type: DataTypes.INTEGER,
+                references: { model: "categories", key: "id" },
                 allowNull: false,
+                onUpdate: "cascade",
+                onDelete: "cascade",
             },
             verified: {
                 type: DataTypes.BOOLEAN,
@@ -69,13 +75,22 @@ module.exports = (sequelize, DataTypes) => {
             imageUrl: {
                 type: DataTypes.STRING,
             },
+            createdAt: {
+                type: "TIMESTAMP",
+                defaultValue: new Date(),
+                allowNull: false,
+            },
+            updatedAt: {
+                type: "TIMESTAMP",
+                defaultValue: new Date(),
+                allowNull: false,
+            },
         },
         {
             sequelize,
-            tableName: 'courses',
-            timestamps: false,
-            modelName: 'Course',
-        },
+            tableName: "courses",
+            modelName: "Course",
+        }
     );
     return Course;
 };

@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-    class Notification extends Model {
+    class Rate extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
@@ -9,11 +9,10 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate({ UserCourse }) {
             // define association here
-            this.belongsTo(UserCourse, { foreignKey: "usercourses", onDelete: "cascade" });
+            this.belongsTo(UserCourse, { foreignKey: "usercourseId", onDelete: "cascade" });
         }
     }
-
-    Notification.init(
+    Rate.init(
         {
             usercourseId: {
                 type: DataTypes.INTEGER,
@@ -22,13 +21,9 @@ module.exports = (sequelize, DataTypes) => {
                 onUpdate: "cascade",
                 onDelete: "cascade",
             },
-            message: {
-                type: DataTypes.TEXT,
-                allowNull: false,
-            },
-            viewed: {
-                type: DataTypes.BOOLEAN,
-                defaultValue: false,
+            rating: {
+                type: DataTypes.ENUM("1", "2", "3", "4", "5"),
+                defaultValue: "1",
                 allowNull: false,
             },
             createdAt: {
@@ -44,9 +39,9 @@ module.exports = (sequelize, DataTypes) => {
         },
         {
             sequelize,
-            tableName: "notifications",
-            modelName: "Notification",
+            modelName: "Rate",
+            tableName: "rates",
         }
     );
-    return Notification;
+    return Rate;
 };

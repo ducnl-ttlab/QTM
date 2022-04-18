@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 module.exports = {
     up: async (queryInterface, DataTypes) => {
         await queryInterface
-            .createTable('usercourses', {
+            .createTable("usercourses", {
                 id: {
                     allowNull: false,
                     autoIncrement: true,
@@ -11,39 +11,38 @@ module.exports = {
                 },
                 userId: {
                     type: DataTypes.INTEGER,
-                    references: { model: 'users', key: 'id' },
+                    references: { model: "users", key: "id" },
                     allowNull: false,
                 },
                 courseId: {
                     type: DataTypes.INTEGER,
-                    references: { model: 'courses', key: 'id' },
+                    references: { model: "courses", key: "id" },
                     allowNull: false,
-                    onUpdate: 'cascade',
-                    onDelete: 'cascade',
+                    onUpdate: "cascade",
+                    onDelete: "cascade",
                 },
-                rating: {
-                    type: DataTypes.ENUM('1', '2', '3', '4', '5'),
-                    defaultValue: '1',
+                status: {
+                    type: DataTypes.ENUM("1", "2", "3"),
+                    defaultValue: "1",
+                },
+                createdAt: {
+                    type: "TIMESTAMP",
+                    defaultValue: DataTypes.literal("CURRENT_TIMESTAMP"),
                     allowNull: false,
                 },
-                dateAdded: {
-                    type: 'TIMESTAMP',
-                    defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
-                    allowNull: false,
-                },
-                lastUpdated: {
-                    type: 'TIMESTAMP',
-                    defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
+                updatedAt: {
+                    type: "TIMESTAMP",
+                    defaultValue: DataTypes.literal("CURRENT_TIMESTAMP"),
                     allowNull: false,
                 },
             })
             .then(() => {
-                queryInterface.addIndex('usercourses', ['userId', 'courseId'], {
+                queryInterface.addIndex("usercourses", ["userId", "courseId"], {
                     unique: true,
                 });
             });
     },
     down: async (queryInterface, DataTypes) => {
-        await queryInterface.dropTable('usercourses');
+        await queryInterface.dropTable("usercourses");
     },
 };
