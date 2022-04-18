@@ -43,10 +43,7 @@ exports.getDetails = async (req, res) => {
 exports.active = async (req, res) => {
   try {
     const { courseId } = req.params;
-    const updatedCourse = await Course.update(
-      { verified: 1 },
-      { where: { id: courseId } }
-    );
+    await Course.update({ verified: 1 }, { where: { id: courseId } });
 
     return res.status(200).json({
       error: false,
@@ -66,6 +63,38 @@ exports.suspend = async (req, res) => {
     return res.status(200).json({
       error: false,
       msg: "updated",
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Server error");
+  }
+};
+
+exports.edit = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    const { name, description } = req.body;
+    const course = {
+      name,
+      description,
+    };
+
+    if (req.file !== undefined) {
+      let { imageUrl } = course;
+      if (imageUrl) {
+        await cloudinary.uploader.destroy(imageUrl.split(" ")[1]);
+      }
+
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: "courses",
+      });
+
+      course.imageUrl = `${result.secure_url} ${result.public_id}`;
+    }
+    await Course.update(course, { where: { id: courseId } });
+    return res.status(200).json({
+      error: false,
+      msg: "Updated!",
     });
   } catch (error) {
     console.log(error.message);
@@ -94,6 +123,26 @@ exports.create = async (req, res) => {
     });
   } catch (error) {
     console.log(error.message);
+    res.status(500).send("Server error");
+  }
+};
+
+exports.delete = async (req, res) => {
+  try {
+    const { courseId } = req.params;
+    let { imageUrl } = await Course.findByPk(courseId, {
+      attributes: ["imageUrl"],
+    });
+    if (imageUrl) {
+      await cloudinary.uploader.destroy(imageUrl.split(" ")[1]);
+    }
+    await Course.destroy({ where: { id: courseId } });
+    return res.status(200).json({
+      error: false,
+      msg: "Delete course successfully!",
+    });
+  } catch (error) {
+    console.log(error).message;
     res.status(500).send("Server error");
   }
 };
