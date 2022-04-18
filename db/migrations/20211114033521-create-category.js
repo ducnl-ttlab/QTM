@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 module.exports = {
     up: async (queryInterface, DataTypes) => {
-        await queryInterface.createTable('categories', {
+        await queryInterface.createTable("categories", {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -15,19 +15,9 @@ module.exports = {
             imageUrl: {
                 type: DataTypes.STRING,
             },
-            dateAdded: {
-                type: 'TIMESTAMP',
-                defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
-                allowNull: false,
-            },
-            lastUpdated: {
-                type: 'TIMESTAMP',
-                defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
-                allowNull: false,
-            },
         });
     },
     down: async (queryInterface, DataTypes) => {
-        await queryInterface.dropTable('categories');
+        await queryInterface.dropTable("categories");
     },
 };

@@ -1,7 +1,7 @@
 "use strict";
 module.exports = {
-    up: async (queryInterface, DataTypes) => {
-        await queryInterface.createTable("notifications", {
+    async up(queryInterface, DataTypes) {
+        await queryInterface.createTable("rates", {
             id: {
                 allowNull: false,
                 autoIncrement: true,
@@ -15,13 +15,9 @@ module.exports = {
                 onUpdate: "cascade",
                 onDelete: "cascade",
             },
-            message: {
-                type: DataTypes.TEXT,
-                allowNull: false,
-            },
-            viewed: {
-                type: DataTypes.BOOLEAN,
-                defaultValue: false,
+            rating: {
+                type: DataTypes.ENUM("1", "2", "3", "4", "5"),
+                defaultValue: "1",
                 allowNull: false,
             },
             createdAt: {
@@ -36,7 +32,7 @@ module.exports = {
             },
         });
     },
-    down: async (queryInterface, DataTypes) => {
-        await queryInterface.dropTable("notifications");
+    async down(queryInterface, DataTypes) {
+        await queryInterface.dropTable("rates");
     },
 };

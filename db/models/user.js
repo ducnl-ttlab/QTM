@@ -58,10 +58,6 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 allowNull: true,
             },
-            city: {
-                type: DataTypes.STRING,
-                allowNull: true,
-            },
             role: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
@@ -74,14 +70,14 @@ module.exports = (sequelize, DataTypes) => {
             imageUrl: {
                 type: DataTypes.STRING,
             },
-            dateAdded: {
+            createdAt: {
                 type: "TIMESTAMP",
-                defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+                defaultValue: new Date(),
                 allowNull: false,
             },
-            lastUpdated: {
+            updatedAt: {
                 type: "TIMESTAMP",
-                defaultValue: sequelize.literal("CURRENT_TIMESTAMP"),
+                defaultValue: new Date(),
                 allowNull: false,
             },
         },

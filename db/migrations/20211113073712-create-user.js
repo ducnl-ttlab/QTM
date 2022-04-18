@@ -29,10 +29,6 @@ module.exports = {
                 type: DataTypes.STRING,
                 allowNull: true,
             },
-            city: {
-                type: DataTypes.STRING,
-                allowNull: true,
-            },
             role: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
@@ -45,12 +41,12 @@ module.exports = {
             imageUrl: {
                 type: DataTypes.STRING,
             },
-            dateAdded: {
+            createdAt: {
                 type: "TIMESTAMP",
                 defaultValue: DataTypes.literal("CURRENT_TIMESTAMP"),
                 allowNull: false,
             },
-            lastUpdated: {
+            updatedAt: {
                 type: "TIMESTAMP",
                 defaultValue: DataTypes.literal("CURRENT_TIMESTAMP"),
                 allowNull: false,

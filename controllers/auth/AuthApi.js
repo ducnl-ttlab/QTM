@@ -74,6 +74,8 @@ exports.register = async (req, res) => {
         }
 
         await User.create(user);
+        user.password = undefined;
+
         res.status(201).json({
             error: false,
             msg: ["Đăng kí tài khoản thành công"],
