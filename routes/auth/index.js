@@ -3,7 +3,7 @@ const router = express.Router();
 const { AuthApi } = require("../../controllers");
 const { auth } = require("../../middlewares/auth");
 const upload = require("../../utils/multer");
-const { AuthValidation } = require("../../middlewares/validate/");
+const { AuthValidation } = require("../../middlewares/validate");
 
 /**
  * @swagger

@@ -4,7 +4,7 @@ module.exports = {
         currentPage = currentPage || 1;
         let begin = resultPerPage * (currentPage - 1);
         let end = resultPerPage * currentPage;
-        return data.slice(begin, end);
+        return data?.slice(begin, end);
     },
     setOrGetCache: function (key, cb) {
         return new Promise(async (resolve, reject) => {

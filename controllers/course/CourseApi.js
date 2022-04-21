@@ -5,14 +5,18 @@ const { CourseService } = require("../../service");
 
 exports.getAll = async (req, res) => {
     try {
-        // let CourseList = await setOrGetCache("courses", async () => {
-        const courses = await Course.findAll();
-        //   return courses;
-        // });
+        const { page, keyword, categoryId, rating } = req?.query;
 
+        const query = { keyword, rating: rating === null ? undefined : rating, categoryId };
+
+        let CourseList = await setOrGetCache("courses", async () => {
+            const courses = await CourseService.getAll(query);
+            return courses;
+        });
+        const coursePage = pagination(CourseList, page, categoryId);
         res.status(200).json({
             error: false,
-            courses: courses,
+            courses: coursePage,
         });
     } catch (error) {
         console.log(error.message);
