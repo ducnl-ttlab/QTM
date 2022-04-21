@@ -7,7 +7,6 @@ exports.getAll = async (req, res) => {
             let categories = await Category.findAll();
             return categories;
         });
-
         res.status(200).json({
             error: false,
             categories: categoryList,
