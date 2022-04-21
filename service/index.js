@@ -1,0 +1,1 @@
+exports.CourseService = require("./CourseService");

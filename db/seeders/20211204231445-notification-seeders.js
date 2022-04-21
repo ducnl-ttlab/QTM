@@ -14,7 +14,6 @@ module.exports = {
         await queryInterface.bulkInsert(
             "notifications",
             [
-                {},
                 // {
                 //     courseId: '2',
                 //     userId: '2',

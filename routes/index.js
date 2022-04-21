@@ -6,7 +6,7 @@ router.use("/course", require("./course/course"));
 router.use("/user", require("./user/user"));
 router.use("/auth", require("./auth/auth"));
 router.use("/usercourse", require("./usercourse"));
-router.use("/instructor", require("./instructor"));
-
+router.use("/instructor", require("./instructor/instructor"));
+router.use("/admin", require("./admin/admin"));
 
 module.exports = router;

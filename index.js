@@ -7,6 +7,11 @@ const _ = require("lodash");
 const swaggerUI = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
 
+const http = require("http");
+const server = http.createServer(app);
+
+const socket = require("socket.io");
+
 const options = {
     definition: {
         openapi: "3.0.0",
@@ -45,6 +50,28 @@ app.use((req, res, next) => {
     next();
 });
 
+const io = socket(server, {
+    cors: {
+        origin: "http://localhost:3000",
+        credentials: true,
+    },
+});
+
+global.onlineUsers = new Map();
+io.on("connection", (socket) => {
+    global.chatSocket = socket;
+    socket.on("add-user", (userId) => {
+        onlineUsers.set(userId, socket.id);
+    });
+
+    socket.on("send-msg", (data) => {
+        const sendUserSocket = onlineUsers.get(data.to);
+        if (sendUserSocket) {
+            socket.to(sendUserSocket).emit("msg-recieve", data.msg);
+        }
+    });
+});
+
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(
@@ -55,7 +82,7 @@ app.use(
 
 (async () => {
     const client = await createClient({
-        url: process.env.REDIS_URL,
+        // url: process.env.REDIS_URL,
     });
 
     client.on("error", (err) => console.log("Redis Client Error", err));
@@ -64,6 +91,7 @@ app.use(
 
     global.redisClient = client;
     global._ = _;
+    global.io = io;
     console.log("redis connected!");
 })();
 app.use("/", require("./routes"));
@@ -74,7 +102,7 @@ app.use((req, res) => {
     });
 });
 
-app.listen(PORT, async () => {
+server.listen(PORT, async () => {
     console.log(`Example app listening at http://localhost:${PORT}`);
     await sequelize.authenticate();
     console.log("database connected!");
