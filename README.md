@@ -4,6 +4,8 @@
 
 `npm install`
 
+-   Tạo cơ sở dữ liệu mysql với tên elearningdb
+
 -   Thêm bảng database
 
 `sequelize db:migrate`
@@ -16,6 +18,6 @@
 
 `sequelize db:seed:all`
 
-`add .env file`
+-   Thay đổi tên file .env example thành .env
 
 `npm start`

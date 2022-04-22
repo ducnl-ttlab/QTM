@@ -1,0 +1,15 @@
+DB_HOST = localhost
+DB_USER = root
+DB_NAME = elearningdb
+DB_PW = 
+PORT = 7500
+JWT_SECRET = mymagcialsecretkey
+
+COOKIE_EXPIRE = 5
+
+CLOUDINARY_CLOUD_NAME = subarashis
+CLOUDINARY_API_KEY = 222349473882331
+CLOUDINARY_API_SECRET = SeoMgidLh-RtiXQpLXZSG4qlMf0
+
+REDIS_URL =redis://redis-13141.c212.ap-south-1-1.ec2.cloud.redislabs.com:13141
+
