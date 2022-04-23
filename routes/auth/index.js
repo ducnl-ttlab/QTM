@@ -9,7 +9,7 @@ const { AuthValidation } = require("../../middlewares/validate");
  * @swagger
  * components:
  *   schemas:
- *     Book:
+ *     Course:
  *       type: object
  *       required:
  *         - title
@@ -17,13 +17,13 @@ const { AuthValidation } = require("../../middlewares/validate");
  *       properties:
  *         id:
  *           type: string
- *           description: The auto-generated id of the book
+ *           description: The auto-generated id of the Course
  *         title:
  *           type: string
- *           description: The book title
+ *           description: The Course title
  *         author:
  *           type: string
- *           description: The book author
+ *           description: The Course author
  *       example:
  *         id: d5fE_asz
  *         title: The New Turing Omnibus
@@ -33,7 +33,7 @@ const { AuthValidation } = require("../../middlewares/validate");
 /**
  * @swagger
  * tags:
- *   name: Books
+ *   name: Courses
  *   description: The books managing API
  */
 
@@ -42,7 +42,7 @@ const { AuthValidation } = require("../../middlewares/validate");
  * /books:
  *   get:
  *     summary: Returns the list of all the books
- *     tags: [Books]
+ *     tags: [Courses]
  *     responses:
  *       200:
  *         description: The list of the books
@@ -55,6 +55,6 @@ const { AuthValidation } = require("../../middlewares/validate");
  */
 router.post("/register", AuthValidation, AuthApi.register);
 
-router.post("/login", AuthValidation, AuthApi.login);
+router.post("/login", AuthApi.login);
 
 module.exports = router;

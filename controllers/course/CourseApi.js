@@ -9,11 +9,12 @@ exports.getAll = async (req, res) => {
 
         const query = { keyword, rating: rating === null ? undefined : rating, categoryId };
 
-        let CourseList = await setOrGetCache("courses", async () => {
+        let redisKey = JSON.stringify({ keyword, rating, categoryId });
+        let CourseList = await setOrGetCache(`course_${redisKey}`, async () => {
             const courses = await CourseService.getAll(query);
             return courses;
         });
-        const coursePage = pagination(CourseList, page, categoryId);
+        const coursePage = pagination(CourseList, page);
         res.status(200).json({
             error: false,
             courses: coursePage,
