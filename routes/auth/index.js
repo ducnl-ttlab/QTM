@@ -53,8 +53,24 @@ const { AuthValidation } = require("../../middlewares/validate");
  *               items:
  *                 $ref: '#/components/schemas/Book'
  */
-router.post("/register", AuthValidation, AuthApi.register);
 
+router.post("/register", AuthValidation, AuthApi.register);
+/**
+ * @swagger
+ * /auth/login:
+ *   get:
+ *     summary: Returns the list of all the books
+ *     tags: [Courses]
+ *     responses:
+ *       200:
+ *         description: The list of the books
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Book'
+ */
 router.post("/login", AuthApi.login);
 
 module.exports = router;
