@@ -1,28 +1,34 @@
-const { Category } = require('../db/models');
-const CategoryService = require('../dbService/categoryService');
-module.exports = class ApiNotification {
-    // @route   GET api/category/get
-    // @desc    get category
-    // @access  Public
-    static getCategory(req, res) {
-        try {
-            CategoryService.getCategories().then((categories) => {
-                res.status(200).json({ error: false, categories });
-            });
-        } catch (error) {
-            console.log(error.message);
-            res.status(500).send('Server error');
-        }
-    }
+const { Category } = require("../db/models");
+const CategoryService = require("../dbService/categoryService");
+const { setOrGetCache } = require("../utils/feature");
 
-    static getName(req, res) {
-        try {
-            CategoryService.getCategoriesName().then((categories) => {
-                res.status(200).json({ error: false, categories });
-            });
-        } catch (error) {
-            console.log(error.message);
-            res.status(500).send('Server error');
-        }
+module.exports = class ApiNotification {
+  // @route   GET api/category/get
+  // @desc    get category
+  // @access  Public
+  static async getCategory(req, res) {
+    try {
+      let CacheCategory = await setOrGetCache("category", async () => {
+        return await CategoryService.getCategories();
+      });
+
+      res.status(200).json({ error: false, categories: CacheCategory });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).send("Server error");
     }
+  }
+
+  static async getName(req, res) {
+    try {
+      let CacheCategoryName = await setOrGetCache("categoryName", async () => {
+        return await CategoryService.getCategoriesName();
+      });
+
+      res.status(200).json({ error: false, categories: CacheCategoryName });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).send("Server error");
+    }
+  }
 };
