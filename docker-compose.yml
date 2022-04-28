@@ -1,16 +1,22 @@
-version: "3.7"
+version: "2"
 services:
-    redis-server:
+    redis:
         image: redis
-        container_name: redis-server
-
-    api:
-        build: .
-        container_name: api
-        restart: unless-stopped
+        container_name: cache
+        ports:
+            - 6379:6379
+        networks:
+            - front
+    app:
+        # some definitions
+        build: ./backend
+        links:
+            - redis
         ports:
             - 7500:7500
-        #depends_on:
-        #    - redis
-        #links:
-        #    - redis
+        networks:
+            - front
+networks:
+    front:
+        # use the bridge driver, but enable IPv6
+        driver: bridge

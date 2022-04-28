@@ -1,23 +1,17 @@
-# QTM-INT3310_2
+# elearning - Trang web học trực tuyến
 
-`cd QTM-INT3310_2`
+#Ecommerce
+# Tổng quan
 
-`npm install`
+- Trang web học trực tuyến 
+- Các tính năng
+  - link đặc tả sơ bộ: https://docs.google.com/document/d/1KFLUC9A08iai9X_ZedA4RliwF6zhHGMgZJfpdVB3Yyo/edit
+  - link đặc tả hệ thống: https://docs.google.com/document/d/13xhZFKevE4Dq8oZCWzETIuVUcZRhbLfkOuXkkhG6CyY/edit
+- Công nghệ sử dụng
+  - backend: node js mysql sequelize
+  - frontend: reactjs
+# Yêu cầu 
+  * npm, node
 
--   Tạo cơ sở dữ liệu mysql với tên elearningdb
-
--   Thêm bảng database
-
-`sequelize db:migrate`
-
--   Xóa database:
-
-`sequelize db:migrate:undo:all`
-
--   Thêm dữ liệu tự động vào trong database
-
-`sequelize db:seed:all`
-
--   Thay đổi tên file .env example thành .env
-
-`npm start`
+# Link trang web
+ - https://academix.netlify.app/
