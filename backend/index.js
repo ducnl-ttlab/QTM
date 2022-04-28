@@ -30,13 +30,9 @@ app.use(
     })
 );
 (async () => {
-    const client = await redis.createClient({
-        host: "redis-19335.c291.ap-southeast-2-1.ec2.cloud.redislabs.com",
-        port: 19335,
-        no_ready_check: true,
-        auth_pass: "pwMzzgb4ULJoF4HueLz5jBVkEzT8CgCX",
+    const client = redis.createClient({
+        url: `redis://default:${process.env.REDIS_PASSWORD}@${process.env.REDIS_URI}:${process.env.REDIS_PORT}`,
     });
-
     client.on("error", (err) => console.log("Redis Client Error", err));
 
     await client.connect();
