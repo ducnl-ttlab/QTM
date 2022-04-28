@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const { sequelize } = require("./db/models");
-const { createClient } = require("redis");
+const redis = require("redis");
 require("dotenv").config();
 
 const PORT = process.env.PORT || 5000;
@@ -30,9 +30,11 @@ app.use(
     })
 );
 (async () => {
-    const client = await createClient({
-        host: "redis-server",
-        port: 6379,
+    const client = await redis.createClient({
+        host: "redis-19335.c291.ap-southeast-2-1.ec2.cloud.redislabs.com",
+        port: 19335,
+        no_ready_check: true,
+        auth_pass: "pwMzzgb4ULJoF4HueLz5jBVkEzT8CgCX",
     });
 
     client.on("error", (err) => console.log("Redis Client Error", err));
