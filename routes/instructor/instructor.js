@@ -5,6 +5,8 @@ const { Auth, InstructorAuth, InstructorCourseAuth } = require("../../middleware
 const { CourseValidation } = require("../../middlewares/validate");
 
 router.get("/getCourses", Auth, InstructorAuth, CourseApi.getInstructorCourses);
-router.put("/:courseId/invite/:userId", Auth, InstructorCourseAuth, StudentInstructorApi.invite);
+router.put("/:courseId/invite/:studentId", Auth, InstructorCourseAuth, StudentInstructorApi.invite);
+router.get("/:courseId/getStudents", StudentInstructorApi.getCourseStudents);
+router.put("/:courseId/kickStudent/:studentId", StudentInstructorApi.kickStudent);
 
 module.exports = router;

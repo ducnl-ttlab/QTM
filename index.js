@@ -81,10 +81,7 @@ app.use(
 );
 
 (async () => {
-    const client = await createClient({
-        // url: process.env.REDIS_URL,
-        url: "redis://localhost:6379",
-    });
+    const client = await createClient("6379", "redis");
 
     client.on("error", (err) => console.log("Redis Client Error", err));
 

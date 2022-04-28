@@ -1,7 +1,7 @@
-DB_HOST = localhost
-DB_USER = root
-DB_NAME = elearningdb
-DB_PW = 
+DB_HOST =bamuciucnojeeiqgwscc-mysql.services.clever-cloud.com
+DB_USER =u4bovrermcqurawa
+DB_NAME =bamuciucnojeeiqgwscc
+DB_PASSWORD = 2hyk3dWDwyJNMHTW4DBj
 PORT = 7500
 JWT_SECRET = mymagcialsecretkey
 

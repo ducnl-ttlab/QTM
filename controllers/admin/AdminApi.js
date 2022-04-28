@@ -2,12 +2,16 @@ const { User } = require("../../db/models");
 const { setOrGetCache } = require("../../utils/feature");
 const moment = require("moment");
 
-exports.getInstructors = async (req, res, next) => {
+exports.getUsers = async (req, res, next) => {
     try {
-        let instructors = await User.findAll({ where: { role: 1 } });
+        const type = req.params.type || 1;
+
+        const userCache = await setOrGetCache(`user_${type}`, async () => {
+            return await User.findAll({ where: { role: type } });
+        });
         res.status(200).json({
             error: false,
-            instructors,
+            users: userCache,
         });
     } catch (error) {
         console.log(error.message);

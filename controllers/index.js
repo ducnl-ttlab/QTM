@@ -6,3 +6,4 @@ exports.StudentInstructorApi = require("./instructor-student/instructor");
 exports.AdminApi = require("./admin/AdminApi");
 exports.UsercourseApi = require("./usercourse/UsercourseApi");
 exports.TopicApi = require("./topic/TopicApi");
+exports.NotificationApi = require("./notification/NotificationApi");

@@ -15,15 +15,12 @@ module.exports = (sequelize, DataTypes) => {
                 onDelete: "cascade",
                 hooks: true,
             });
-            this.belongsToMany(Course, {
-                through: "usercourses",
-                foreignKey: "userId",
-            });
             this.belongsToMany(Question, {
                 through: "userquestions",
                 foreignKey: "userId",
             });
             this.hasMany(Notification, { foreignKey: "userId" });
+            this.hasMany(UserCourse, { foreignKey: "userId" });
         }
         toJSON() {
             return {

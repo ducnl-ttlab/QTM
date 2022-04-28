@@ -8,9 +8,16 @@ module.exports = {
                 primaryKey: true,
                 type: DataTypes.INTEGER,
             },
-            usercourseId: {
+            courseId: {
                 type: DataTypes.INTEGER,
-                references: { model: "usercourses", key: "id" },
+                references: { model: "courses", key: "id" },
+                allowNull: false,
+                onUpdate: "cascade",
+                onDelete: "cascade",
+            },
+            userId: {
+                type: DataTypes.INTEGER,
+                references: { model: "users", key: "id" },
                 allowNull: false,
                 onUpdate: "cascade",
                 onDelete: "cascade",

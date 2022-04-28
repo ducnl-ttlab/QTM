@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
-        static associate({ Course, User, Comment, Rate }) {
+        static associate({ Course, User, Comment, Rate, Notification }) {
             // define association here
             this.belongsTo(Course, {
                 foreignKey: "courseId",
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
                 onDelete: "cascade",
             },
             status: {
-                type: DataTypes.ENUM("1", "2", "3"),
+                type: DataTypes.ENUM("1", "2", "3"), // accept / pending / forbidden
                 defaultValue: "1",
             },
             createdAt: {

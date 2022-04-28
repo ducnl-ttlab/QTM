@@ -33,16 +33,21 @@ const { AuthValidation } = require("../../middlewares/validate");
 /**
  * @swagger
  * tags:
- *   name: Courses
+ *   name: Auth
  *   description: The books managing API
  */
-
+/**
+ * @swagger
+ * tags:
+ *   name: Course
+ *   description: The books managing API
+ */
 /**
  * @swagger
  * /books:
  *   get:
  *     summary: Returns the list of all the books
- *     tags: [Courses]
+ *     tags: [Auth]
  *     responses:
  *       200:
  *         description: The list of the books
@@ -60,7 +65,7 @@ router.post("/register", AuthValidation, AuthApi.register);
  * /auth/login:
  *   get:
  *     summary: Returns the list of all the books
- *     tags: [Courses]
+ *     tags: [Auth]
  *     responses:
  *       200:
  *         description: The list of the books
