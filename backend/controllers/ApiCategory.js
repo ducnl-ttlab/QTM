@@ -1,6 +1,6 @@
 const { Category } = require("../db/models");
 const CategoryService = require("../dbService/categoryService");
-const { setOrGetCache } = require("../utils/feature");
+const { setOrGetCache, removeCacheWithPrefix } = require("../utils/feature");
 
 module.exports = class ApiNotification {
   // @route   GET api/category/get
@@ -11,7 +11,7 @@ module.exports = class ApiNotification {
       let CacheCategory = await setOrGetCache("category", async () => {
         return await CategoryService.getCategories();
       });
-
+      await removeCacheWithPrefix("categor");
       res.status(200).json({ error: false, categories: CacheCategory });
     } catch (error) {
       console.log(error.message);

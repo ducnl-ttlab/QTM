@@ -1,5 +1,6 @@
 const ChatService = require('../dbservice/ChatService');
 const NotificationService = require('../dbservice/NotificationService');
+const { setOrGetCache } = require("../utils/feature");
 
 module.exports = class ApiChat {
     // @route   POST api/chat/chats/:courseId
