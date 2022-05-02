@@ -4,6 +4,8 @@ const cloudinary = require('../config/cloud/cloudinary');
 const crypto = require('crypto');
 const sendEmail = require('../utils/sendmail');
 const { User } = require('../db/models');
+const { setOrGetCache } = require("../utils/feature");
+
 
 module.exports = class ApiUser {
     // @route   POST api/auth/register
