@@ -1,11 +1,16 @@
 version: "2"
 services:
     api:
-        # some definitions
         build: ./backend
         container_name: api
         ports:
             - 7500:7500
+
+    socket:
+        build: ./socket
+        container_name: socket
+        ports:
+            - 4000:4000
 
     client:
         build: ./frontend
@@ -14,12 +19,13 @@ services:
             - 3000:3000
         depends_on:
             - api
+            - socket
 
     admin:
-        build: ./frontend
+        build: ./admin
         container_name: admin
         ports:
-            - 3001:3001
+            - 5000:5000
         depends_on:
             - api
 
