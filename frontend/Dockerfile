@@ -13,7 +13,7 @@ RUN npm install
 #Copy remaining files
 COPY ./ ./
 
-EXPOSE 4000
+EXPOSE 3000
 
 
 #Default command

@@ -41,6 +41,7 @@ function App() {
                     let { info } = data;
                     setUser({ ...info });
                     setAuth(true);
+                    // socket.current = io("https://socket-elearning.herokuapp.com/");
                     socket.current = io("http://localhost:4000/");
                     socket.current.emit("joinRoom", { email: info.email });
                 })
