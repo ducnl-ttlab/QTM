@@ -12,11 +12,6 @@ const UserService = require("../dbService/userService");
 const UserCourseService = require("../dbService/userCourseService");
 const TopicService = require("../dbService/topicService");
 const QuizService = require("../dbService/quizService");
-const {
-  setOrGetCache,
-  removeCache,
-  removeCacheWithPrefix,
-} = require("../utils/feature");
 
 module.exports = class ApiCourse {
   // @route   POST api/course/create/:categoryId
@@ -55,7 +50,6 @@ module.exports = class ApiCourse {
     const courseId = req.params.courseId;
     try {
       let course = await Course.findOne({ where: { id: courseId } });
-      await removeCacheWithPrefix(`course`);
       if (course.verified) {
         return res.status(400).json({
           error: true,
@@ -82,7 +76,6 @@ module.exports = class ApiCourse {
     const courseId = req.params.courseId;
     try {
       let course = await Course.findOne({ where: { id: courseId } });
-      await removeCacheWithPrefix("course");
       if (!course.verified) {
         return res.status(400).json({
           error: true,
@@ -130,7 +123,6 @@ module.exports = class ApiCourse {
       course.description = description;
 
       await course.save();
-      await removeCacheWithPrefix("course");
       if (course.imageUrl) {
         course.imageUrl = course.imageUrl.split(" ")[0];
       }
@@ -159,7 +151,6 @@ module.exports = class ApiCourse {
       }
 
       await course.destroy();
-      await removeCacheWithPrefix("course");
       res.status(200).json({
         error: false,
         msg: "Đã xoá khoá học ",
@@ -300,10 +291,7 @@ module.exports = class ApiCourse {
       categoryId: req.query.categoryId,
     };
     try {
-      let hashKeyRedis = `course${query.keyword}${query.rating}${query.categoryId}`;
-      let CacheCourse = await setOrGetCache(hashKeyRedis, async () => {
-        return await CourseService.getAll(query);
-      });
+      let CacheCourse = await CourseService.getAll(query);
 
       let page = req.query.page || 1;
       let courses = pagination(CacheCourse, page);

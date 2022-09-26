@@ -7,7 +7,6 @@ const {
   Notification,
 } = require("../db/models");
 const UserCourseService = require("../dbService/userCourseService");
-const { setOrGetCache } = require("../utils/feature");
 
 module.exports = class ApiCourse {
   // @route   GET api/userCourse/enroll/:courseId

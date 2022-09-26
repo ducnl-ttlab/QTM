@@ -9,11 +9,6 @@ const {
 } = require("../db/models");
 const TopicService = require("../dbService/topicService");
 const QuizService = require("../dbService/quizService");
-const {
-  setOrGetCache,
-  removeCache,
-  removeCacheWithPrefix,
-} = require("../utils/feature");
 
 module.exports = class ApiTopic {
   // @route   POST api/topic/create
@@ -28,8 +23,6 @@ module.exports = class ApiTopic {
     };
     try {
       await Topic.create(topic).then(async (topic) => {
-        await removeCache(`topic ${req.courseId}`);
-        await removeCache(`topicName ${req.courseId}`);
         res.status(201).json({
           error: false,
           msg: "Tạo chủ đề thành công",
@@ -46,20 +39,13 @@ module.exports = class ApiTopic {
   // @access  Private
   static async getCourseTopics(req, res) {
     try {
-      let course = await setOrGetCache(`course`, async () => {
-        return await Course.findOne({
-          where: { id: req.courseId },
-        });
+      let course = await Course.findOne({
+        where: { id: req.courseId },
       });
 
-      let CacheTopic = await setOrGetCache(
-        `topic ${req.courseId}`,
-        async () => {
-          return await Topic.findAll({
-            where: { courseId: req.courseId },
-          });
-        }
-      );
+      let CacheTopic = await Topic.findAll({
+        where: { courseId: req.courseId },
+      });
       res.status(200).json({
         error: false,
         course,
@@ -75,13 +61,7 @@ module.exports = class ApiTopic {
   // @access  Private
   static async getTopicNames(req, res) {
     try {
-      console.log(await redisClient.keys("*"));
-      let CacheTopicNames = await setOrGetCache(
-        `topicName ${req.courseId}`,
-        async () => {
-          return await TopicService.getTopicName(req.courseId);
-        }
-      );
+      let CacheTopicNames = TopicService.getTopicName(req.courseId);
 
       res.status(200).json({
         error: false,
@@ -192,7 +172,6 @@ module.exports = class ApiTopic {
       await Topic.destroy({ where: { id: req.params.topicId } }).then(
         (value) => {
           if (value === 1) {
-            removeCacheWithPrefix("topic");
             res.status(200).json({
               error: true,
               msg: ["Xoá topic thành công"],

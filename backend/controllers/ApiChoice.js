@@ -1,5 +1,4 @@
 const { Choice } = require("../db/models");
-const { setOrGetCache } = require("../utils/feature");
 
 module.exports = class ApiChoice {
   // @route   POST api/question/:courseId/:quizId/:questionId/createchoice
