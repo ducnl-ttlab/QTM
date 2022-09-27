@@ -10,6 +10,8 @@ const allowlist = [
   "http://localhost:3000",
   "http://localhost:3001",
   "https://academix.netlify.app",
+  "http://35.198.211.185:3000",
+  "http://35.198.211.185",
 ];
 
 const redisUrl = `${process.env.REDIS_URL || "redis://127.0.0.1:6379"}`;
