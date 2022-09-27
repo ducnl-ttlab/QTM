@@ -33,3 +33,13 @@ services:
       - 5000:5000
     depends_on:
       - api
+
+  nginx:
+    depends_on:
+      - api
+      - client
+      - admin
+    restart: always
+    build: ./nginx
+    ports:
+      - "80:80"
