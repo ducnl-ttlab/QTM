@@ -11,6 +11,7 @@ const allowlist = [
   "http://localhost:3001",
   "https://academix.netlify.app",
   "http://35.198.211.185:3000",
+  "http://35.198.211.185:5000",
   "http://35.198.211.185",
 ];
 
