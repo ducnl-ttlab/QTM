@@ -1,6 +1,6 @@
 import http from "./httpService";
 
-const apiEndpoint = "http://10.148.0.2:7500/api/admin";
+const apiEndpoint = "http://35.240.138.169:7500/api/admin";
 
 http.setJwt(getJwt());
 
@@ -33,7 +33,7 @@ function logout() {
 }
 
 async function getAdmin() {
-  return await http.get("http://10.148.0.2:7500/api/user/info");
+  return await http.get("http://35.240.138.169:7500/api/user/info");
 }
 
 function getJwt() {
