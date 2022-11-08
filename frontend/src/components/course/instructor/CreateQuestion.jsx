@@ -61,12 +61,12 @@ function CreateQuestion() {
       let { content, marks, questionId, answers } = updateAnswerQuestion;
       setQuestion({ content, marks, questionId });
       setAnswerList(answers);
-      setCorrectAnswer(answers.findIndex((v) => v.isAnswer === 1));
+      setCorrectAnswer(answers?.findIndex((v) => v.isAnswer === 1));
     }
     setErrorMsg("");
   }, [updateAnswerQuestion]);
 
-  const chooseTopic = topics.map((v, index) => (
+  const chooseTopic = topics?.map((v, index) => (
     <option value={v.id} key={index}>
       {v.title}
     </option>
@@ -130,7 +130,7 @@ function CreateQuestion() {
 
   const handleAddAnswer = (e) => {
     e.preventDefault();
-    if (answerList.length > 3) {
+    if (answerList?.length > 3) {
       setToastList([
         showToast("info", "Thông báo!", "Chỉ có tối đa 4 đáp án!"),
       ]);
@@ -149,7 +149,7 @@ function CreateQuestion() {
 
   const handleDeleteAnswer = (e, index) => {
     e.preventDefault();
-    setAnswerList(answerList.filter((answer, i) => i !== index));
+    setAnswerList(answerList?.filter((answer, i) => i !== index));
     if (correctAnswer === index) {
       setCorrectAnswer(-1);
     } else if (correctAnswer > index) {
@@ -158,7 +158,7 @@ function CreateQuestion() {
     setErrorMsg("");
   };
 
-  const quiz = answerList.map((v, index) => {
+  const quiz = answerList?.map((v, index) => {
     return index > 3 ? (
       ""
     ) : (
@@ -203,7 +203,7 @@ function CreateQuestion() {
       setErrorMsg("Câu hỏi phải nhiều hơn 10 kí tự");
       return;
     }
-    if (answerList.length < 2) {
+    if (answerList?.length < 2) {
       setErrorMsg("Phải có 2 đáp án trở lên");
       return;
     }
@@ -212,7 +212,7 @@ function CreateQuestion() {
       return;
     }
 
-    for (let i = 0; i < answerList.length; i++) {
+    for (let i = 0; i < answerList?.length; i++) {
       answerList[i].isAnswer = false;
       if (answerList[i].content.length <= 10) {
         setErrorMsg("Đáp án có nhiều hơn 10 kí tự");
@@ -240,7 +240,7 @@ function CreateQuestion() {
           questionId,
           answers: [],
         };
-        for (let i = 0; i < answerList.length; i++) {
+        for (let i = 0; i < answerList?.length; i++) {
           await quizService
             .createAnswer(id, topicId, quizId, questionId, answerList[i])
             .then((res) => {
@@ -290,7 +290,7 @@ function CreateQuestion() {
       setErrorMsg("Câu hỏi phải nhiều hơn 10 kí tự");
       return;
     }
-    if (answerList.length < 2) {
+    if (answerList?.length < 2) {
       setErrorMsg("Phải có 2 đáp án trở lên");
       return;
     }
@@ -299,7 +299,7 @@ function CreateQuestion() {
       return;
     }
 
-    for (let i = 0; i < answerList.length; i++) {
+    for (let i = 0; i < answerList?.length; i++) {
       answerList[i].isAnswer = false;
       if (answerList[i].content.length <= 10) {
         setErrorMsg("Đáp án có nhiều hơn 10 kí tự");
@@ -329,7 +329,7 @@ function CreateQuestion() {
             questionId,
             answers: [],
           };
-          for (let i = 0; i < answerList.length; i++) {
+          for (let i = 0; i < answerList?.length; i++) {
             await quizService
               .createAnswer(id, topicId, quizId, questionId, answerList[i])
               .then((res) => {

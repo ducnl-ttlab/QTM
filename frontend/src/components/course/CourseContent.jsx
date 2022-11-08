@@ -59,7 +59,7 @@ function CourseContent({ user }) {
     </LoaderWrap>
   );
 
-  const renderTopics = topics.map((topic, index) => (
+  const renderTopics = topics?.map((topic, index) => (
     <Title
       className={topicId === topic.id ? "active" : ""}
       key={index}

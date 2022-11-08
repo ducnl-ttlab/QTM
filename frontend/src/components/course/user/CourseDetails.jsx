@@ -30,13 +30,12 @@ function CourseDetails({ user }) {
     })();
   }, []);
 
-  console.log(topics);
 
   const topicTable =
     topics.length === 0 ? (
       <div>Không có topic</div>
     ) : (
-      topics.map((topic, index) => {
+      topics?.map((topic, index) => {
         return (
           <XYZ>
             <div>{topic.title}</div>
@@ -54,7 +53,6 @@ function CourseDetails({ user }) {
         setTopics(res.topics);
       });
     };
-    console.log(currentPage,"currentPage")
   return (
     <>
       {isLoading ? (

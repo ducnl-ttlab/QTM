@@ -26,7 +26,7 @@ function ViewStudents() {
   const [toggleEditQuiz, setToggleEditQuiz] = useState(false);
   const [quizIdSelection, setQuizIdSelection] = useState(-1);
 
-  const chooseTopic = topics.map((v, index) => (
+  const chooseTopic = topics[0] && topics?.map((v, index) => (
     <option value={v.id} key={index}>
       {v.title} 
     </option>

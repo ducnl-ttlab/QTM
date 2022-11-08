@@ -91,7 +91,7 @@ function CourseEnroll({ checkEnroll }) {
     </>
   );
 
-  const topicContent = topics.map((topic, index) => (
+  const topicContent = topics?.map((topic, index) => (
     <Wrap key={index}>
       <Topic>
         Chủ đề {index + 1}: {topic.title}

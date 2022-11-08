@@ -61,7 +61,7 @@ module.exports = class ApiTopic {
   // @access  Private
   static async getTopicNames(req, res) {
     try {
-      let CacheTopicNames = TopicService.getTopicName(req.courseId);
+      let CacheTopicNames = await TopicService.getTopicName(req.courseId);
 
       res.status(200).json({
         error: false,

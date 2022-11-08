@@ -93,7 +93,7 @@ function EditCourseInfos({ courseParam, topicsParam }) {
   const handleSelectedTopic = (id) => {
     setTopicId(id);
   };
-  const renderTopics = topics.map((topic, index) => (
+  const renderTopics = topics?.map((topic, index) => (
     <>
       <Title
         className={topicId === topic.id ? "active" : ""}
