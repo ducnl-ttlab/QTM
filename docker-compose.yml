@@ -12,7 +12,6 @@ services:
     ports:
       - 3000:3000
     depends_on:
-      - api
       - socket
 
   admin:
@@ -20,8 +19,7 @@ services:
     container_name: admin
     ports:
       - 5000:5000
-    depends_on:
-      - api
+
 
   nginx:
     depends_on:
